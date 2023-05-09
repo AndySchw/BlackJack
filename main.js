@@ -18,6 +18,7 @@ window.onload=function() {
     starten()
 }
 
+// Neue Runde, Score bleibt
 function weiter() {
     dealerSum = 0
     spielerSum = 0
@@ -27,10 +28,9 @@ function weiter() {
     starten()
     alleKarten()
     mischen()
-    
-    
 }
 
+// Wertigkeiten der Karten werden vergeben
 function getValue(card){
     let data = card.split("-");
     let value = data[1];
@@ -44,6 +44,7 @@ function getValue(card){
     return parseInt(value);
 }
 
+// Fügt alle Karten zusammen in deck  (Werte + Farbe) 
 function alleKarten(){
     for(let i=0; i < type.length; i++){
         for(let j=0; j < deckWerte.length; j++){
@@ -52,37 +53,7 @@ function alleKarten(){
     }
 }
 
-function starten(){
-    document.getElementById("dealer-cards").innerHTML = "";
-    document.getElementById("your-cards").innerHTML = "";
-    
-    hidden = deck.pop()
-    // console.log(deck)
-    while(dealerSum < 17){
-        let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src="bilder/"+card+".png";
-        dealerSum += getValue(card);
-        // dealerAceCount += checkAce(card);
-        document.getElementById("dealer-cards").append(cardImg)
-        document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
-        
-    }
-    //console.log(dealerSum)
-    
-    for(let i=0; i<2; i++){
-        let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src="bilder/"+card+".png";
-        spielerSum += getValue(card);
-        // yourAceCount += checkAce(card);
-        document.getElementById("your-cards").append(cardImg)
-        document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
-    }
-    document.getElementById("hit").addEventListener("click", hit);
-    document.getElementById("halt").addEventListener("click", halt);
-}
-
+// mischt unser deck Array
 function mischen(){
     for( let i=0; i<deck.length;i++){
         let j=Math.floor(Math.random()*deck.length)
@@ -92,14 +63,48 @@ function mischen(){
     }
 }
 
+
+// Erstellt die Karten vom Dealer und Spieler
+function starten(){
+    // bereinigt die angezeigten Karten nach jeder Runde
+    document.getElementById("dealer-cards").innerHTML = "";
+    document.getElementById("your-cards").innerHTML = "";
+    
+    // Entzieht deck eine Karte
+    hidden = deck.pop()
+    // Erstellt Dealer Karten so oft bist er mehr als 16 Punkte hat
+    while(dealerSum < 17){
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src="bilder/"+card+".png"; //fügt bei dem erstellen img den link der Ressurce
+        dealerSum += getValue(card);
+        // dealerAceCount += checkAce(card);
+        document.getElementById("dealer-cards").append(cardImg)
+        document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
+        
+    }
+    
+    // Erstellt Spieler Karten
+    for(let i=0; i<2; i++){
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src="bilder/"+card+".png";
+        spielerSum += getValue(card);
+        // yourAceCount += checkAce(card);
+        document.getElementById("your-cards").append(cardImg)
+        document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
+    }
+    // Butten Event immer neu Aauslösbar
+    document.getElementById("hit").addEventListener("click", hit);
+    document.getElementById("halt").addEventListener("click", halt);
+}
+
+// Erstellt neue Karte wenn vom Spieler der HIT Button benutzt wird
 function hit(){
     if(!karteZiehen){
         return;
     }
-    /* Bug fix */
-  /*   if(yourSum == 21){
-        return
-    } */
+    
     let cardImg = document.createElement("img");
     let card = deck.pop();
     cardImg.src="bilder/"+card+".png";
@@ -107,6 +112,7 @@ function hit(){
     // yourAceCount += checkAce(card);
     document.getElementById("your-cards").append(cardImg)
     document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
+    // Spieler kann keine Karten ziehen wenn über 21 Punkten
     if(spielerSum >= 21){
         karteZiehen = false
     
@@ -117,7 +123,7 @@ function hit(){
     // }
 }
 
-
+// ist der stay butten und vergleicht die Ergebnisse wer gewonnen hat 
 function halt(){
 
     
@@ -146,6 +152,7 @@ function halt(){
         document.getElementById("SiegeDealer").innerText = (dealerScore)
         
     }
+    // spielt geht automatisch weiter nach 3 Sekunden
     setTimeout(automatischWeiter, 3000)
     document.getElementById("results").innerText = nachicht
     karteZiehen = false
@@ -156,10 +163,9 @@ function automatischWeiter() {
     weiter()
   }
   
-  // Timer, der die Funktion nach 5 Sekunden ausführt
   
 
-
+// Spiel Neustart Webseite wird neu geladen
 function neustart(){
     location.reload();
 }
