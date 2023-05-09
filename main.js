@@ -1,5 +1,6 @@
 
-
+var dealerScore = 0
+var spielerScore = 0
 var dealerSum = 0
 var spielerSum = 0
 var hidden = 0
@@ -9,8 +10,7 @@ var deckWerte = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "D", "K
 var type = ["Karo", "Herz", "Pik", "Kreuz"]
 var deck = []
 
-var siege = []
-var siege1 = []
+
 
 window.onload=function() {
     alleKarten()
@@ -19,10 +19,16 @@ window.onload=function() {
 }
 
 function weiter() {
+    dealerSum = 0
+    spielerSum = 0
+    hidden = 0
+    karteZiehen = true
+    document.getElementById("results").innerHTML = "";
+    starten()
     alleKarten()
     mischen()
-    starten()
-    updatePunkte()
+    
+    
 }
 
 function getValue(card){
@@ -47,6 +53,8 @@ function alleKarten(){
 }
 
 function starten(){
+    document.getElementById("dealer-cards").innerHTML = "";
+    document.getElementById("your-cards").innerHTML = "";
     
     hidden = deck.pop()
     // console.log(deck)
@@ -111,36 +119,32 @@ function hit(){
 
 
 function halt(){
+
+    
     let nachicht = ""
     if(spielerSum > 21){
         nachicht = "Dealer Gewinnt"
-        siege.push(1)
+        dealerScore += 1
+        document.getElementById("SiegeDealer").innerText = (dealerScore)
     }else if(dealerSum > 21 ){
         nachicht = "Spieler Gewinnt"
-        siege1.push(1)
+        spielerScore += 1
+        document.getElementById("SiegeSpieler").innerText = (spielerScore)
     }else if(spielerSum == dealerSum){
         nachicht = "Unentschieden"
     }else if(spielerSum > dealerSum){
         nachicht = "Spieler Gewinnt"
-        siege1.push(1)
+        spielerScore += 1
+        document.getElementById("SiegeSpieler").innerText = (spielerScore)
     }else if(spielerSum < dealerSum){
         nachicht = "Dealer Gewinnt"
-        siege.push(1)
+        dealerScore += 1
+        document.getElementById("SiegeDealer").innerText = (dealerScore)
     }
     document.getElementById("results").innerText = nachicht
     karteZiehen = false
 }
 
-function updatePunkte(){
-    const siegedealer = siege.length
-    var siegespieler = siege1.length
-
-    const siege0 = document.getElementById("SiegeSpieler");
-    siege0.innerText = ("Siege : ") + siegedealer
-
-    const niederlage0 = document.getElementById("SiegeDealer");
-    niederlage0.innerText = ("Siege : ") + siegespieler
-}
 
 function neustart(){
     location.reload();
