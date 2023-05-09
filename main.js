@@ -10,12 +10,19 @@ var type = ["Karo", "Herz", "Pik", "Kreuz"]
 var deck = []
 
 var siege = []
-var niederlagen = []
+var siege1 = []
 
 window.onload=function() {
     alleKarten()
     mischen()
     starten()
+}
+
+function weiter() {
+    alleKarten()
+    mischen()
+    starten()
+    updatePunkte()
 }
 
 function getValue(card){
@@ -107,34 +114,34 @@ function halt(){
     let nachicht = ""
     if(spielerSum > 21){
         nachicht = "Dealer Gewinnt"
-        
+        siege.push(1)
     }else if(dealerSum > 21 ){
         nachicht = "Spieler Gewinnt"
+        siege1.push(1)
     }else if(spielerSum == dealerSum){
         nachicht = "Unentschieden"
     }else if(spielerSum > dealerSum){
         nachicht = "Spieler Gewinnt"
+        siege1.push(1)
     }else if(spielerSum < dealerSum){
         nachicht = "Dealer Gewinnt"
+        siege.push(1)
     }
     document.getElementById("results").innerText = nachicht
     karteZiehen = false
 }
 
-// let message = "";
-//     if (yourSum > 21) {
-//         message = "You Lose!";
-//     }
-//     else if (dealerSum > 21) {
-//         message = "You win!";
-//     }
-//     //both you and dealer <= 21
-//     else if (yourSum == dealerSum) {
-//         message = "Tie!";
-//     }
-//     else if (yourSum > dealerSum) {
-//         message = "You Win!";
-//     }
-//     else if (yourSum < dealerSum) {
-//         message = "You Lose!";
-//     }
+function updatePunkte(){
+    const siegedealer = siege.length
+    var siegespieler = siege1.length
+
+    const siege0 = document.getElementById("SiegeSpieler");
+    siege0.innerText = ("Siege : ") + siegedealer
+
+    const niederlage0 = document.getElementById("SiegeDealer");
+    niederlage0.innerText = ("Siege : ") + siegespieler
+}
+
+function neustart(){
+    location.reload();
+}
