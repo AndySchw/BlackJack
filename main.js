@@ -126,24 +126,38 @@ function halt(){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
         document.getElementById("SiegeDealer").innerText = (dealerScore)
+        
     }else if(dealerSum > 21 ){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
+        
     }else if(spielerSum == dealerSum){
         nachicht = "Unentschieden"
+        
     }else if(spielerSum > dealerSum){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
+        
     }else if(spielerSum < dealerSum){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
         document.getElementById("SiegeDealer").innerText = (dealerScore)
+        
     }
+    setTimeout(automatischWeiter, 3000)
     document.getElementById("results").innerText = nachicht
     karteZiehen = false
 }
+
+// Funktion, die nach einer bestimmten Zeit ausgeführt wird
+function automatischWeiter() {
+    weiter()
+  }
+  
+  // Timer, der die Funktion nach 5 Sekunden ausführt
+  
 
 
 function neustart(){

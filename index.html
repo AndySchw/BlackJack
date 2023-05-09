@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-<h2>BlackJack Casino</h2>
+<h2 class="ueberschrift">BlackJack Casino</h2>
 
-    <h2>Dealer: <span id="SiegeDealer"></span> </h2>
+    <h2 class="spieler">Dealer: <span id="SiegeDealer"></span> </h2>
     
     
     <div id="dealer-cards"> 
@@ -24,7 +24,7 @@
     <p id="ergebnis-dealer"></p>
     <h5 id="results"></h5>
 
-    <h2>Spieler: <span id="SiegeSpieler"></span></h2>
+    <h2 class="spieler">Spieler: <span id="SiegeSpieler"></span></h2>
     
     
     <div id="your-cards"> 
@@ -32,13 +32,15 @@
     </div>
     <p id="ergebnis-spieler"></p>
     <br>
-    <button id="hit">Hit</button>
-    <button id="halt">stay</button>
-    <button onclick="neustart()">Neustart</button>
-    <button onclick="weiter()">Weiter</button>
+    <button class="btn btn-primary" id="hit">Hit</button>
+    <button class="btn btn-danger" id="halt">stay</button>
+    
     
 
-
+    <div class="start ">
+        <button style="display: block;margin: 3px;" class="btn btn-outline-light" onclick="neustart()">Neustart</button>
+        <button style="display: block;margin: 3px;" class="btn btn-outline-warning" onclick="weiter()">Weiter</button>
+      </div>
 
 
 
