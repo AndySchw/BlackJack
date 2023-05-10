@@ -7,7 +7,8 @@ var spielerSum = 0
 var spielerAceCount = 0
 
 var hidden = 0
-var karteZiehen = true
+var karteZiehenDE = true
+var karteZiehenSP = true
 
 var deckWerte = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "D", "K"];
 var type = ["Karo", "Herz", "Pik", "Kreuz"]
@@ -26,7 +27,7 @@ function weiter() {
     dealerSum = 0
     spielerSum = 0
     hidden = 0
-    karteZiehen = true
+    karteZiehenSP = true
     document.getElementById("results").innerHTML = "";
     starten()
     alleKarten()
@@ -89,7 +90,6 @@ function starten(){
         document.getElementById("ergebnis-dealer").innerText="Summe: "
         var tempDealer = reduceAce(dealerSum, dealerAceCount)
         if(tempDealer[0]>21){
-            karteZiehen = false;
             dealerSum = tempDealer[0]
             dealerAceCount = tempDealer[1]
         }
@@ -116,12 +116,12 @@ function starten(){
 // Erstellt neue Karte wenn vom Spieler der HIT Button benutzt wird
 
 function hit(){
-    if(!karteZiehen){
+    if(!karteZiehenSP){
         return;
     }
     
     if(spielerSum == 21){
-        karteZiehen = false;
+        karteZiehenSP = false;
         return;
     }
     let cardImg = document.createElement("img");
@@ -139,7 +139,7 @@ function hit(){
     // }
     let tempSpieler = reduceAce(spielerSum, spielerAceCount)
         if(tempSpieler[0]>21){
-            karteZiehen = false;
+            karteZiehenSP = false;
             spielerSum = tempSpieler[0]
             spielerAceCount = tempSpieler[1]
         }
@@ -181,7 +181,7 @@ function halt(){
     // spielt geht automatisch weiter nach 3 Sekunden
     setTimeout(automatischWeiter, 3000)
     document.getElementById("results").innerText = nachicht
-    karteZiehen = false
+    karteZiehenSP = false
 }
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
@@ -219,6 +219,6 @@ function reduceAce(spSum, spAceCount){
     // spielerSum = spSum
     // spielerAceCount = spAceCount
     
-    return spSum, spAceCount
+    return [spSum, spAceCount]
 }
 
