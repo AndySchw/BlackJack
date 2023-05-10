@@ -186,12 +186,17 @@ function halt(){
     document.getElementById("results").innerText = nachicht
     karteZiehenSP = false
 
-    for(let i = 0; i < dealerCard.length; i++ ){
-        cardImg.src = "bilder/" + dealerCard[i] + ".png";
-        document.getElementById("dealer-cards").src = cardImg.src
-    }
-
-    
+    // for(let i = 0; i < dealerCard.length; i++ ){
+    //     document.getElementById("dealer-cards").appendChild(("bilder/" + dealerCard[i] + ".png").src);
+    // }
+    for (let i = 0; i < dealerCard.length; i++) {
+        let cardImg = document.getElementById(dealerCard[i]);
+        if (cardImg) {
+          cardImg.src = "bilder/" + dealerCard[i] + ".png";
+        }
+      }
+      cardImg.src = "";
+      document.getElementById(dealerCard[i])
 }
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
