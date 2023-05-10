@@ -87,7 +87,8 @@ function starten(){
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
         document.getElementById("ergebnis-dealer").innerText="Summe: "
-        if(reduceAce(dealerSum, dealerAceCount)>21){
+        var temp = reduceAce(dealerSum, dealerAceCount)[0]
+        if(temp>21){
             karteZiehen = false;
         }
     }   
@@ -199,15 +200,28 @@ function checkAce(card){
 }
 
 
-// zieht 10 ab für jedes Ass nud rechnet die gezählten Asse wieder ab
+// zieht 10 für Spieler ab für jedes Ass nud rechnet die gezählten Asse wieder ab
 function reduceAce(spSum, spAceCount){
     
     while(spSum > 21 && spAceCount > 0){
         spSum = spSum - 10
         spAceCount = spAceCount - 1
     }
-    spielerSum = spSum
-    spielerAceCount = spAceCount
+    // spielerSum = spSum
+    // spielerAceCount = spAceCount
     
-    return spSum
+    return spSum, spAceCount
 }
+
+// // zieht 10 für Dealer ab für jedes Ass nud rechnet die gezählten Asse wieder ab
+// function reduceAce2(deSum, deAceCount){
+    
+//     while(deSum > 21 && deAceCount > 0){
+//         deSum = deSum - 10
+//         deAceCount = deAceCount - 1
+//     }
+//     dealerSum = deSum
+//     dealerAceCount = deAceCount
+    
+//     return deSum
+// }

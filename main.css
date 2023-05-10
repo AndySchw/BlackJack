@@ -1,16 +1,21 @@
 body{
-    background-color: rgb(52, 134, 57);
+    background-image: url(bilder/hintergrund.jpg);
     font-family:Arial, Helvetica, sans-serif ;
     text-align: center;
+    
 }
 
 h2{
     font-family:Georgia, 'Times New Roman', Times, serif ;
-    font-weight: 600;
+    font-weight: 900;
+    font-size: 40px;
+    color: rgb(247, 17, 17);
+
 }
 
 .ueberschrift{
     margin-top: 20px;
+    color: rgb(254, 183, 18);
 }
 
 #results{
@@ -54,4 +59,7 @@ h2{
     left: 0; 
     margin: 10px;
     
+}
+.summen{
+    color: white;
 }
