@@ -72,20 +72,28 @@ function starten(){
     // bereinigt die angezeigten Karten nach jeder Runde
     document.getElementById("dealer-cards").innerHTML = "";
     document.getElementById("your-cards").innerHTML = "";
-    
+
+    let cardImg = document.createElement("img");
+    let card = 0
+
     // Entzieht deck eine Karte
     hidden = deck.pop()
     // Erstellt Dealer Karten so oft bist er mehr als 16 Punkte hat
     while(dealerSum < 17){
+        card = deck.pop(); 
         let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src="bilder/"+card+".png"; //fügt bei dem erstellen img den link der Ressurce
+        cardImg.src="bilder/back.png";
+        document.getElementById("dealer-cards").append(cardImg)
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
+        document.getElementById("ergebnis-dealer").innerText="Summe: "
+        if(reduceAce(dealerSum, dealerAceCount)>21){
+            karteZiehen = false;
+        }
+    }   
+        cardImg.src="bilder/"+card+".png";
         document.getElementById("dealer-cards").append(cardImg)
-        document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
-        
-    }
+    
     
     // Erstellt Spieler Karten
     for(let i=0; i<2; i++){
@@ -93,7 +101,7 @@ function starten(){
         let card = deck.pop();
         cardImg.src="bilder/"+card+".png";
         spielerSum += getValue(card);
-        spielerAceCount += checkAce(card);
+        spielerAceCount += checkAce(card); //Zählt Ass
         document.getElementById("your-cards").append(cardImg)
         document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
     }
@@ -109,6 +117,10 @@ function hit(){
         return;
     }
     
+    if(spielerSum == 21){
+        karteZiehen = false;
+        return;
+    }
     let cardImg = document.createElement("img");
     let card = deck.pop();
     cardImg.src="bilder/"+card+".png";
@@ -116,10 +128,12 @@ function hit(){
     spielerAceCount += checkAce(card);
     document.getElementById("your-cards").append(cardImg)
     document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
+    // prüft die wertigkeiten der Spielersummme und ändert diese bei einem Ass
     
-    if(reduceAce(spielerSum, spielerAceCount)>=21 && spielerAceCount > 0){
+    if(reduceAce(spielerSum, spielerAceCount)>21){
         karteZiehen = false;
     }
+    
     document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
 }
 
@@ -152,6 +166,8 @@ function halt(){
         document.getElementById("SiegeDealer").innerText = (dealerScore)
         
     }
+    document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
+
     // spielt geht automatisch weiter nach 3 Sekunden
     setTimeout(automatischWeiter, 3000)
     document.getElementById("results").innerText = nachicht
@@ -160,7 +176,9 @@ function halt(){
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
 function automatischWeiter() {
+    
     weiter()
+    
   }
   
   
@@ -170,6 +188,7 @@ function neustart(){
     location.reload();
 }
 
+// sucht nach einem Ass beim Spieler 
 function checkAce(card){
     let data = card.split("-");
     if (data[1] == "A"){
@@ -179,6 +198,8 @@ function checkAce(card){
     
 }
 
+
+// zieht 10 ab für jedes Ass nud rechnet die gezählten Asse wieder ab
 function reduceAce(spSum, spAceCount){
     
     while(spSum > 21 && spAceCount > 0){
@@ -186,7 +207,7 @@ function reduceAce(spSum, spAceCount){
         spAceCount = spAceCount - 1
     }
     spielerSum = spSum
-    dealerAceCount = spAceCount
-    // karteZiehen = true
+    spielerAceCount = spAceCount
+    
     return spSum
 }
