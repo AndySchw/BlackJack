@@ -13,7 +13,7 @@ var karteZiehenSP = true
 var deckWerte = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "D", "K"];
 var type = ["Karo", "Herz", "Pik", "Kreuz"]
 var deck = []
-
+var dealerCard = []
 
 
 window.onload=function() {
@@ -82,8 +82,10 @@ function starten(){
     // Erstellt Dealer Karten so oft bist er mehr als 16 Punkte hat
     while(dealerSum < 17){
         card = deck.pop(); 
+        dealerCard.push(card)
         let cardImg = document.createElement("img");
         cardImg.src="bilder/back.png";
+        cardImg.id = card;
         document.getElementById("dealer-cards").append(cardImg)
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
@@ -178,10 +180,18 @@ function halt(){
     }
     document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
 
+
     // spielt geht automatisch weiter nach 3 Sekunden
-    setTimeout(automatischWeiter, 3000)
+    setTimeout(automatischWeiter, 4000)
     document.getElementById("results").innerText = nachicht
     karteZiehenSP = false
+
+    for(let i = 0; i < dealerCard.length; i++ ){
+        cardImg.src = "bilder/" + dealerCard[i] + ".png";
+        document.getElementById("dealer-cards").src = cardImg.src
+    }
+
+    
 }
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
