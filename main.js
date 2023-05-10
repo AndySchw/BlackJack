@@ -1,8 +1,11 @@
-
-var dealerScore = 0
-var spielerScore = 0
 var dealerSum = 0
+var dealerScore = 0
+var dealerAceCount = 0
+
+var spielerScore = 0
 var spielerSum = 0
+var spielerAceCount = 0
+
 var hidden = 0
 var karteZiehen = true
 
@@ -78,7 +81,7 @@ function starten(){
         let card = deck.pop();
         cardImg.src="bilder/"+card+".png"; //fügt bei dem erstellen img den link der Ressurce
         dealerSum += getValue(card);
-        // dealerAceCount += checkAce(card);
+        dealerAceCount += checkAce(card); //Zählt Ass
         document.getElementById("dealer-cards").append(cardImg)
         document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
         
@@ -90,7 +93,7 @@ function starten(){
         let card = deck.pop();
         cardImg.src="bilder/"+card+".png";
         spielerSum += getValue(card);
-        // yourAceCount += checkAce(card);
+        spielerAceCount += checkAce(card);
         document.getElementById("your-cards").append(cardImg)
         document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
     }
@@ -100,6 +103,7 @@ function starten(){
 }
 
 // Erstellt neue Karte wenn vom Spieler der HIT Button benutzt wird
+
 function hit(){
     if(!karteZiehen){
         return;
@@ -109,18 +113,14 @@ function hit(){
     let card = deck.pop();
     cardImg.src="bilder/"+card+".png";
     spielerSum += getValue(card);
-    // yourAceCount += checkAce(card);
+    spielerAceCount += checkAce(card);
     document.getElementById("your-cards").append(cardImg)
     document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
-    // Spieler kann keine Karten ziehen wenn über 21 Punkten
-    if(spielerSum >= 21){
-        karteZiehen = false
     
+    if(reduceAce(spielerSum, spielerAceCount)>=21 && spielerAceCount > 0){
+        karteZiehen = false;
     }
-
-    // if(reduceAce(yourSum, yourAceCount)>21){
-    //     canHit = false;
-    // }
+    document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
 }
 
 // ist der stay butten und vergleicht die Ergebnisse wer gewonnen hat 
@@ -168,4 +168,25 @@ function automatischWeiter() {
 // Spiel Neustart Webseite wird neu geladen
 function neustart(){
     location.reload();
+}
+
+function checkAce(card){
+    let data = card.split("-");
+    if (data[1] == "A"){
+        return 1
+    }
+    return 0
+    
+}
+
+function reduceAce(spSum, spAceCount){
+    
+    while(spSum > 21 && spAceCount > 0){
+        spSum = spSum - 10
+        spAceCount = spAceCount - 1
+    }
+    spielerSum = spSum
+    dealerAceCount = spAceCount
+    // karteZiehen = true
+    return spSum
 }
