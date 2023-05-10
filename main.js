@@ -74,19 +74,17 @@ function starten(){
     document.getElementById("dealer-cards").innerHTML = "";
     document.getElementById("your-cards").innerHTML = "";
 
-    let cardImg = document.createElement("img");
+    
     let card = 0
 
-    // Entzieht deck eine Karte
-    hidden = deck.pop()
     // Erstellt Dealer Karten so oft bist er mehr als 16 Punkte hat
     while(dealerSum < 17){
         card = deck.pop(); 
         dealerCard.push(card)
-        let cardImg = document.createElement("img");
+        var cardImg = document.createElement("img");
         cardImg.src="bilder/back.png";
         cardImg.id = card;
-        document.getElementById("dealer-cards").append(cardImg)
+        
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
         document.getElementById("ergebnis-dealer").innerText="Summe: "
@@ -95,9 +93,10 @@ function starten(){
             dealerSum = tempDealer[0]
             dealerAceCount = tempDealer[1]
         }
-    }   
-        cardImg.src="bilder/"+card+".png";
         document.getElementById("dealer-cards").append(cardImg)
+    }   
+    cardImg.src="bilder/"+dealerCard[dealerCard.length - 1]+".png";
+    
     
     
     // Erstellt Spieler Karten
@@ -186,17 +185,16 @@ function halt(){
     document.getElementById("results").innerText = nachicht
     karteZiehenSP = false
 
-    // for(let i = 0; i < dealerCard.length; i++ ){
-    //     document.getElementById("dealer-cards").appendChild(("bilder/" + dealerCard[i] + ".png").src);
-    // }
+    
     for (let i = 0; i < dealerCard.length; i++) {
         let cardImg = document.getElementById(dealerCard[i]);
         if (cardImg) {
           cardImg.src = "bilder/" + dealerCard[i] + ".png";
+          
         }
       }
-      cardImg.src = "";
-      document.getElementById(dealerCard[i])
+      
+    
 }
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
