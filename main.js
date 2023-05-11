@@ -264,21 +264,28 @@ var audioPlayer = document.getElementById('myAudio');
 
 //   Audio Sachen
 
+// Lautstärke
+
+
+  var audio = document.getElementById("myAudio");
+  audio.volume = 0.05; // Setze die Lautstärke
+  audio.play(); // Starte die Wiedergabe
+
+
 // Seitenmusik
   audioPlayer.addEventListener('ended', function() {
     currentSong++;
     if (currentSong >= sources.length) {
       currentSong = 0;
-      audio.volume = 0.;
+      
     }
     audioPlayer.src = sources[currentSong].src;
-    audioPlayer.play();
-    
   });
 
   // Start playing the first song
   audioPlayer.src = sources[currentSong].src;
   audioPlayer.play();
+  
 
 //Button musik 
 // Hit
