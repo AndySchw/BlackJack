@@ -88,11 +88,12 @@ function starten(){
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
         document.getElementById("ergebnis-dealer").innerText="Summe: "
+
+        // reduceAce aktuallisiert das Ass nach wertigkeit beim ersten erstellen der Dealerkarten
         var tempDealer = reduceAce(dealerSum, dealerAceCount)
-        if(tempDealer[0]>21){
-            dealerSum = tempDealer[0]
-            dealerAceCount = tempDealer[1]
-        }
+        dealerSum = tempDealer[0]
+        dealerAceCount = tempDealer[1]
+        
         document.getElementById("dealer-cards").append(cardImg)
     }   
     cardImg.src="bilder/"+dealerCard[dealerCard.length - 1]+".png";
@@ -106,6 +107,13 @@ function starten(){
         cardImg.src="bilder/"+card+".png";
         spielerSum += getValue(card);
         spielerAceCount += checkAce(card); //Zählt Ass
+        
+
+        // reduceAce aktuallisiert das Ass nach wertigkeit beim ersten erstellen
+        let tempSpieler = reduceAce(spielerSum, spielerAceCount)
+        spielerSum = tempSpieler[0]
+        spielerAceCount = tempSpieler[1]
+
         document.getElementById("your-cards").append(cardImg)
         document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
     }
@@ -116,7 +124,10 @@ function starten(){
 
 // Erstellt neue Karte wenn vom Spieler der HIT Button benutzt wird
 
+
 function hit(){
+
+    
     if(!karteZiehenSP){
         return;
     }
@@ -128,27 +139,28 @@ function hit(){
     let cardImg = document.createElement("img");
     let card = deck.pop();
     cardImg.src="bilder/"+card+".png";
-    spielerSum += getValue(card);
     spielerAceCount += checkAce(card);
+    spielerSum += getValue(card);
+    
+
+    // prüft die wertigkeiten der Spielersummme und ändert diese bei einem Ass
+
+    // reduceAce aktuallisiert das Ass nach wertigkeit beim benutzen von hit 
+    let tempSpieler = reduceAce(spielerSum, spielerAceCount)
+    spielerSum = tempSpieler[0]
+    spielerAceCount = tempSpieler[1]
+     
     document.getElementById("your-cards").append(cardImg)
     document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
-    // prüft die wertigkeiten der Spielersummme und ändert diese bei einem Ass
-    
-    // if(reduceAce(spielerSum, spielerAceCount)>21){
-    //     karteZiehen = false;
 
-    // }
-    let tempSpieler = reduceAce(spielerSum, spielerAceCount)
-        if(tempSpieler[0]>21){
-            karteZiehenSP = false;
-            spielerSum = tempSpieler[0]
-            spielerAceCount = tempSpieler[1]
-        }
+    if(spielerSum > 21){
+        karteZiehenSP = false;
+    }
     
-    document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
 }
 
 // ist der stay butten und vergleicht die Ergebnisse wer gewonnen hat 
+
 function halt(){
 
     
@@ -229,8 +241,7 @@ function reduceAce(spSum, spAceCount){
         spSum = spSum - 10
         spAceCount = spAceCount - 1
     }
-    // spielerSum = spSum
-    // spielerAceCount = spAceCount
+    
     
     return [spSum, spAceCount]
 }
