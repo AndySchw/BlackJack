@@ -5,17 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
+    
+    <audio id="hit-sound" src="musik/hit.mp3" ></audio>
     <title>BlackJack</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <audio id="hit-sound" src="musik/hit.mp3"></audio>
+    <audio id="stay-sound" src="musik/stay.mp3"></audio>
+    <audio id="win-sound" src="musik/win.mp3"></audio>
+    <audio id="lose-sound" src="musik/lose.mp3"></audio>
+
+    <audio class="audio" id="myAudio" controls>
+        <source src="musik/hintergrund1.mp3" type="audio/mpeg">
+        <source src="musik/hintergrund.mp3" type="audio/mpeg">
+        <source src="musik/hintergrund2.mp3" type="audio/mpeg">
+        <source src="musik/hintergrund3.mp3" type="audio/mpeg">
+      </audio>
+
 <h2 class="ueberschrift">BlackJack Casino</h2>
 
+
     <h2 class="spieler">Dealer: <span id="SiegeDealer"></span> </h2>
-    
+    <p class="summen" id="ergebnis-dealer"></p>
     
     <div id="dealer-cards"> 
         <!-- DealerKarten werden eingefügt -->
@@ -23,18 +39,18 @@
         <!-- <img src="./cards/2-D.png" alt=""> -->
     </div>
     <!-- Karten Wertigkeit der liegenden Karten -->
-    <p class="summen" id="ergebnis-dealer"></p>
+    
     <!-- zeigt wer gewonnen hat -->
     <h5 id="results"></h5>
 
     <h2 class="spieler">Spieler: <span id="SiegeSpieler"></span></h2>
-    
+    <p class="summen" id="ergebnis-spieler"></p>
     <!-- SpielerKarten werden eingefügt -->
     <div id="your-cards"> 
         <!-- <img src="./cards/BACK.png" alt=""> -->
     </div>
     <!-- Karten Wertigkeit der liegenden Karten -->
-    <p class="summen" id="ergebnis-spieler"></p>
+    
     <br>
     <button class="btn btn-primary" id="hit">Hit</button>
     <button class="btn btn-danger" id="halt">stay</button>
@@ -43,7 +59,7 @@
 
     <div class="start ">
         <button style="display: block;margin: 3px;" class="btn btn-outline-light" onclick="neustart()">Neustart</button>
-        <button style="display: block;margin: 3px;" class="btn btn-outline-warning" onclick="weiter()">Weiter</button>
+        <button id="weiter-sound" style="display: block;margin: 3px;" class="btn btn-outline-warning " onclick="weiter()">Weiter</button>
       </div>
 
 

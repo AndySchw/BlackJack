@@ -168,11 +168,15 @@ function halt(){
     if(spielerSum > 21){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
+        var audio = document.getElementById("lose-sound");
+        audio.play();
         document.getElementById("SiegeDealer").innerText = (dealerScore)
         
     }else if(dealerSum > 21 ){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
+        var audio = document.getElementById("win-sound");
+        audio.play();
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
         
     }else if(spielerSum == dealerSum){
@@ -181,11 +185,15 @@ function halt(){
     }else if(spielerSum > dealerSum){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
+        var audio = document.getElementById("win-sound");
+        audio.play();
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
         
     }else if(spielerSum < dealerSum){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
+        var audio = document.getElementById("lose-sound");
+        audio.play();
         document.getElementById("SiegeDealer").innerText = (dealerScore)
         
     }
@@ -211,7 +219,8 @@ function halt(){
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
 function automatischWeiter() {
-    
+    var audio = document.getElementById("hit-sound");
+    audio.play();
     weiter()
     
   }
@@ -246,3 +255,47 @@ function reduceAce(spSum, spAceCount){
     return [spSum, spAceCount]
 }
 
+
+
+var audioPlayer = document.getElementById('myAudio');
+  var sources = audioPlayer.getElementsByTagName('source');
+  var currentSong = 0;
+
+
+//   Audio Sachen
+
+// Seitenmusik
+  audioPlayer.addEventListener('ended', function() {
+    currentSong++;
+    if (currentSong >= sources.length) {
+      currentSong = 0;
+      audio.volume = 0.;
+    }
+    audioPlayer.src = sources[currentSong].src;
+    audioPlayer.play();
+    
+  });
+
+  // Start playing the first song
+  audioPlayer.src = sources[currentSong].src;
+  audioPlayer.play();
+
+//Button musik 
+// Hit
+  document.getElementById("hit").addEventListener("click", function() {
+    var audio = document.getElementById("hit-sound");
+    audio.play();
+  });
+
+//   Stay
+  document.getElementById("halt").addEventListener("click", function() {
+    var audio = document.getElementById("stay-sound");
+    audio.play();
+  });
+  //   Stay
+  
+  // weiter
+  document.getElementById("weiter-sound").addEventListener("click", function() {
+    var audio = document.getElementById("hit-sound");
+    audio.play();
+  });
