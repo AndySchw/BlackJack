@@ -6,7 +6,6 @@ var spielerScore = 0
 var spielerSum = 0
 var spielerAceCount = 0
 
-var hidden = 0
 var karteZiehenDE = true
 var karteZiehenSP = true
 
@@ -26,12 +25,15 @@ window.onload=function() {
 function weiter() {
     dealerSum = 0
     spielerSum = 0
-    hidden = 0
+    karteZiehenDE = true
     karteZiehenSP = true
+    spielerAceCount = 0
+    dealerAceCount = 0
+    deck.length = 0
     document.getElementById("results").innerHTML = "";
-    starten()
     alleKarten()
     mischen()
+    starten()
 }
 
 // Wertigkeiten der Karten werden vergeben
@@ -84,17 +86,17 @@ function starten(){
         var cardImg = document.createElement("img");
         cardImg.src="bilder/back.png";
         cardImg.id = card;
-        
+        document.getElementById("dealer-cards").append(cardImg)
+
         dealerSum += getValue(card);
         dealerAceCount += checkAce(card); //Zählt Ass
-        document.getElementById("ergebnis-dealer").innerText="Summe: "
+       
 
         // reduceAce aktuallisiert das Ass nach wertigkeit beim ersten erstellen der Dealerkarten
         var tempDealer = reduceAce(dealerSum, dealerAceCount)
         dealerSum = tempDealer[0]
         dealerAceCount = tempDealer[1]
-        
-        document.getElementById("dealer-cards").append(cardImg)
+        document.getElementById("ergebnis-dealer").innerText="Summe: *"
     }   
     cardImg.src="bilder/"+dealerCard[dealerCard.length - 1]+".png";
     
@@ -105,16 +107,17 @@ function starten(){
         let cardImg = document.createElement("img");
         let card = deck.pop();
         cardImg.src="bilder/"+card+".png";
+        document.getElementById("your-cards").append(cardImg)
+
         spielerSum += getValue(card);
         spielerAceCount += checkAce(card); //Zählt Ass
         
-
         // reduceAce aktuallisiert das Ass nach wertigkeit beim ersten erstellen
         let tempSpieler = reduceAce(spielerSum, spielerAceCount)
         spielerSum = tempSpieler[0]
         spielerAceCount = tempSpieler[1]
 
-        document.getElementById("your-cards").append(cardImg)
+        
         document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
     }
     // Butten Event immer neu Aauslösbar
@@ -123,11 +126,7 @@ function starten(){
 }
 
 // Erstellt neue Karte wenn vom Spieler der HIT Button benutzt wird
-
-
 function hit(){
-
-    
     if(!karteZiehenSP){
         return;
     }
@@ -139,31 +138,26 @@ function hit(){
     let cardImg = document.createElement("img");
     let card = deck.pop();
     cardImg.src="bilder/"+card+".png";
+    document.getElementById("your-cards").append(cardImg)
+
     spielerAceCount += checkAce(card);
     spielerSum += getValue(card);
-    
-
-    // prüft die wertigkeiten der Spielersummme und ändert diese bei einem Ass
 
     // reduceAce aktuallisiert das Ass nach wertigkeit beim benutzen von hit 
     let tempSpieler = reduceAce(spielerSum, spielerAceCount)
     spielerSum = tempSpieler[0]
     spielerAceCount = tempSpieler[1]
-     
-    document.getElementById("your-cards").append(cardImg)
-    document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
 
     if(spielerSum > 21){
         karteZiehenSP = false;
     }
-    
+    document.getElementById("ergebnis-spieler").innerText="Summe: " + spielerSum
 }
 
 // ist der stay butten und vergleicht die Ergebnisse wer gewonnen hat 
 
-function halt(){
-
-    
+function halt(){ 
+    karteZiehenSP = false
     let nachicht = ""
     if(spielerSum > 21){
         nachicht = "Dealer Gewinnt"
@@ -194,38 +188,30 @@ function halt(){
         dealerScore += 1
         var audio = document.getElementById("lose-sound");
         audio.play();
-        document.getElementById("SiegeDealer").innerText = (dealerScore)
-        
+        document.getElementById("SiegeDealer").innerText = (dealerScore)   
     }
+
     document.getElementById("ergebnis-dealer").innerText="Summe: " + dealerSum
 
-
-    // spielt geht automatisch weiter nach 3 Sekunden
+    // Spiel geht automatisch weiter nach 4 Sekunden
     setTimeout(automatischWeiter, 4000)
     document.getElementById("results").innerText = nachicht
-    karteZiehenSP = false
-
     
+    // Dealer Karten werden aufgedeckt
     for (let i = 0; i < dealerCard.length; i++) {
         let cardImg = document.getElementById(dealerCard[i]);
         if (cardImg) {
           cardImg.src = "bilder/" + dealerCard[i] + ".png";
-          
         }
-      }
-      
-    
+      } 
 }
 
 // Funktion, die nach einer bestimmten Zeit ausgeführt wird
 function automatischWeiter() {
     var audio = document.getElementById("hit-sound");
     audio.play();
-    weiter()
-    
+    weiter()  
   }
-  
-  
 
 // Spiel Neustart Webseite wird neu geladen
 function neustart(){
@@ -238,10 +224,8 @@ function checkAce(card){
     if (data[1] == "A"){
         return 1
     }
-    return 0
-    
+    return 0  
 }
-
 
 // zieht 10 für Spieler ab für jedes Ass nud rechnet die gezählten Asse wieder ab
 function reduceAce(spSum, spAceCount){
@@ -250,7 +234,6 @@ function reduceAce(spSum, spAceCount){
         spSum = spSum - 10
         spAceCount = spAceCount - 1
     }
-    
     
     return [spSum, spAceCount]
 }
@@ -268,7 +251,7 @@ var audioPlayer = document.getElementById('myAudio');
 
 
   var audio = document.getElementById("myAudio");
-  audio.volume = 0.05; // Setze die Lautstärke
+  audio.volume = 0.02; // Setze die Lautstärke
   audio.play(); // Starte die Wiedergabe
 
 
@@ -306,3 +289,22 @@ var audioPlayer = document.getElementById('myAudio');
     var audio = document.getElementById("hit-sound");
     audio.play();
   });
+
+
+
+  var audio = document.getElementById("myAudio");
+  var muteButton = document.getElementById("muteButton");
+
+  function toggleMute() {
+    var Mute = document.getElementsByClassName("laut");
+    
+
+      if (audio.paused) {
+          audio.play();
+          Mute.src="bilder/an.png";
+      } else {
+          audio.pause();
+          Mute.src="bilder/aus.png";
+      }
+      Mute.getElementsByClassName("laut").append(Mute)
+  }
