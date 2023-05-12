@@ -68,7 +68,8 @@ h2{
     top: 0; 
     right: 0; 
     margin: 10px;
-    
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .laut{

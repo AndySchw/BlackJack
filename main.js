@@ -14,6 +14,9 @@ var type = ["Karo", "Herz", "Pik", "Kreuz"]
 var deck = []
 var dealerCard = []
 
+// Variablen für den Mute Button
+var audio = document.getElementById("myAudio");
+var muteButton = document.getElementById("bildAnders");
 
 window.onload=function() {
     alleKarten()
@@ -290,21 +293,15 @@ var audioPlayer = document.getElementById('myAudio');
     audio.play();
   });
 
-
-
-  var audio = document.getElementById("myAudio");
-  var muteButton = document.getElementById("muteButton");
-
+// Mute Button
   function toggleMute() {
-    var Mute = document.getElementsByClassName("laut");
     
-
       if (audio.paused) {
           audio.play();
-          Mute.src="bilder/an.png";
+          muteButton.src = "bilder/an.png";
       } else {
           audio.pause();
-          Mute.src="bilder/aus.png";
+          muteButton.src = "bilder/aus.png";
       }
-      Mute.getElementsByClassName("laut").append(Mute)
+      
   }

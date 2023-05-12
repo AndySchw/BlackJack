@@ -16,7 +16,7 @@
 </head>
 <body>
     <!-- sounds -->
-    <audio class="audio" id="myAudio"  autoplay >
+    <audio class="audio" id="myAudio"  autostart autoplay >
         <source src="musik/hintergrund1.mp3" type="audio/mpeg" >
         <source src="musik/hintergrund.mp3" type="audio/mpeg">
         <source src="musik/hintergrund2.mp3" type="audio/mpeg">
@@ -27,8 +27,11 @@
     <audio id="stay-sound" src="musik/stay.mp3"></audio>
     <audio id="win-sound" src="musik/win.mp3"></audio>
     <audio id="lose-sound" src="musik/lose.mp3"></audio>
+    
+<!-- button von musik -->
+    <button class="audio" id="muteButton" onclick="toggleMute()" > <img id="bildAnders" class="laut" src="bilder/aus.png" alt=""></button>
 <!-- sounds -->
-<button class="audio " id="muteButton" onclick="toggleMute()"><img class="laut" src="bilder/an.png" alt="Lautstärke"></button>
+
 
 
 
