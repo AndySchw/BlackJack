@@ -18,6 +18,7 @@ var dealerCard = []
 var audio = document.getElementById("myAudio");
 var muteButton = document.getElementById("bildAnders");
 
+// was passiert beim Seitenstart
 window.onload=function() {
     alleKarten()
     mischen()
@@ -166,6 +167,7 @@ function halt(){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
         var audio = document.getElementById("lose-sound");
+        audio.volume = 0.1;
         audio.play();
         document.getElementById("SiegeDealer").innerText = (dealerScore)
         
@@ -173,6 +175,7 @@ function halt(){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
         var audio = document.getElementById("win-sound");
+        audio.volume = 0.08;
         audio.play();
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
         
@@ -183,6 +186,7 @@ function halt(){
         nachicht = "Spieler Gewinnt"
         spielerScore += 1
         var audio = document.getElementById("win-sound");
+        audio.volume = 0.08;
         audio.play();
         document.getElementById("SiegeSpieler").innerText = (spielerScore)
         
@@ -190,6 +194,7 @@ function halt(){
         nachicht = "Dealer Gewinnt"
         dealerScore += 1
         var audio = document.getElementById("lose-sound");
+        audio.volume = 0.1;
         audio.play();
         document.getElementById("SiegeDealer").innerText = (dealerScore)   
     }
