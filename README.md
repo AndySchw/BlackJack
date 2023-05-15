@@ -21,7 +21,7 @@ Der Spieler hat die Möglichkeit, entweder eine weitere Karte zu ziehen ("Hit") 
 
 Wenn der Spieler sich entscheidet, keine weiteren Karten zu ziehen, ist der Dealer an der Reihe. Der Dealer zieht solange Karten, bis er eine Summe von mindestens 17 erreicht oder überschreitet. Danach werden die Karten des Dealers aufgedeckt und die Ergebnisse werden verglichen. Der Spieler mit der höheren Summe, die aber nicht über 21 liegt, gewinnt das Spiel.
 
-Nach dem Ende einer Runde startet nach 4 Sekunden eine neue, ohne den Spielstand zu verlieren.
+Nach dem Ende einer Runde startet nach 4 Sekunden eine neue, ohne den Spielstand zu verlieren. Nach dem Drücken des "Neustart" Button werden die Spielerstände zurückgesetzt.
 
 Funktionen
 Das Spiel implementiert die folgenden JavaScript-Funktionen:
