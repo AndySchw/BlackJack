@@ -15,7 +15,7 @@ main.css: Die CSS-Datei, die das Aussehen und das Layout der Spieloberfläche de
 main.js: Die JavaScript-Datei, die die Spiellogik implementiert.
 
 Spielablauf
-Das Spiel beginnt, indem der Spieler auf den "Neustart" Button klickt. Dabei werden die Karten gemischt und an den Dealer und den Spieler ausgeteilt. Der Dealer erhält eine Karte verdeckt und eine Karte offen, während der Spieler zwei Karten offen erhält.
+Das Spiel beginnt, nach dem Laden der Seite. Dabei werden die Karten gemischt und an den Dealer und den Spieler ausgeteilt. Der Dealer erhält eine Karte verdeckt und eine Karte offen, während der Spieler zwei Karten offen erhält.
 
 Der Spieler hat die Möglichkeit, entweder eine weitere Karte zu ziehen ("Hit") oder keine weiteren Karten zu ziehen ("Stay"). Das Ziel des Spiels ist es, mit den gezogenen Karten möglichst nahe an eine Summe von 21 zu gelangen, ohne diese zu überschreiten.
 
